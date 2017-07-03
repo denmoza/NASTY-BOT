@@ -40,7 +40,6 @@ function findUser(user, msg){
   }
 }
 
-// For detecting if the user have a specific role
 function hasRole(mem, role){
     if(pluck(mem.roles).includes(role)){
         return true;
@@ -48,3 +47,44 @@ function hasRole(mem, role){
         return false;
     }
 }
+
+client.on('guildCreate', guild => {
+    // Private things here xd
+});
+
+client.on('ready', () => {
+  client.user.setGame(' Loading Modules... ');
+  console.log(`Logged in as ${client.user.username}!`);
+  //client.user.setGame(`New bot on the block (//help)| Currently on ${client.guilds.size} guilds!` );
+  client.user.setGame(// Follow this channel -> "https://www.twitch.tv/heythatisnasty");
+})
+
+client.on('message', msg => {
+
+// Functions
+  function setWelcome(message, args) {
+      if (!msg.member.hasPermission("MANAGE_GUILD")) return;
+      let guild = msg.guild;
+      welcomes[guild.id] = args;
+      msg.channel.send(`Welcome message set to ${args}`);
+      console.log(welcomes);
+      fs.writeFileSync('./messages.json', JSON.stringify(welcomes), 'utf-8');
+  }
+  function toggleWelcome(message) {
+      if (!msg.member.hasPermission("MANAGE_GUILD")) return;
+      welcomes[msg.guild.id] = undefined;
+  }
+  function sendWelcome(user) {
+      if (welcomes[user.guild.id] === undefined) return;
+      user.guild.defaultChannel.send(welcomes[user.guild.id].replace("{person}", user));
+  }
+    
+  var args = msg.content.split(/[ ]+/);
+    
+ // Commands here
+    
+client.on('guildMemberAdd', member => {
+    sendWelcome(member);
+  });
+
+client.login('not that dumb');
