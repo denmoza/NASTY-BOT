@@ -1,0 +1,16 @@
+{
+  "name": "N A S T Y Bot",
+  "version": "0.1.2",
+  "description": "Made by ItsJustNasty & DusterTheFirst",
+  "main": "app.js",
+  "author": {
+    "name": "ItsJustNasty & DusterTheFirst"
+  },
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "ffmpeg-binaries": "^3.2.2-3",
+    "googleapis": "^19.0.0",
+    "opusscript": "0.0.3",
+    "ytdl-core": "^0.14.4"
+  }
+}
